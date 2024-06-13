@@ -56,7 +56,7 @@ jobs:
       - name: Notify owner
         uses: actions/github-script@v5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.KJ3_PATC }}
           script: |
             const owner = "${{ github.repository_owner }}"
             const page_url = "${{ steps.deployment.outputs.page_url }}"
