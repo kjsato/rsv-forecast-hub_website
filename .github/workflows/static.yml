@@ -59,12 +59,15 @@ jobs:
           script: |
             const owner = "${{ github.repository_owner }}"
             const page_url = "${{ steps.deployment.outputs.page_url }}"
-            const actor = "${{ env.actor }}"
-            const pr_number = "${{ env.pr_number }}"
-            const message = `Hello @${owner}, the deployment of changes by @${actor} in PR #${pr_number} has been completed. You can view the updated pages at ${page_url}.`
+            const actor = "${{ env.actor }}" || 'unknown'
+            const pr_number = "${{ env.pr_number }}" || 'unknown'
+            const message = actor === 'unknown' && pr_number === 'unknown'
+              ? `Hello @${owner}, the deployment has been completed. You can view the updated pages at ${page_url}.`
+              : `Hello @${owner}, the deployment of changes by @${actor} in PR #${pr_number} has been completed. You can view the updated pages at ${page_url}.`
             github.issues.create({
               owner: owner,
               repo: context.repo.repo,
-              title: `Deployment completed for PR #${pr_number}`,
-              body: message
+              title: pr_number === 'unknown'
+                ?  `Deployment completed`
+                : `Deployment completed for PR #${pr_number}`,
             })
