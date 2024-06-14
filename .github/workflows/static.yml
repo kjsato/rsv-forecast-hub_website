@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fetch latest commits
+        run: git fetch origin
       - name: Get commit message
         id: commit
         run: |
