@@ -71,7 +71,7 @@ jobs:
             const actor = "${{ env.actor }}" || 'unknown'
             const pr_number = "${{ env.pr_number }}" || 'unknown'
             const changed_files = "${{ env.CHANGED_FILES }}" || 'unknown'
-            const changed_files_links = changed_files.split(',').map(file => `${page_url}/${file}`).join(', ')
+            const changed_files_links = changed_files.split(',').map(file => `${page_url}${file}`).join(', ')
             const message = actor === 'unknown' && pr_number === 'unknown'
               ? `Hello @${owner}, the deployment has been completed. You can view the updated pages at ${page_url}. The following files were changed: ${changed_files_links}`
               : `Hello @${owner}, the deployment of changes by @${actor} in PR #${pr_number} has been completed. You can view the updated pages at ${page_url}. The following files were changed: ${changed_files_links}`
