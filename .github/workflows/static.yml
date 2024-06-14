@@ -50,7 +50,7 @@ jobs:
       - name: Get changed files
         id: get-files
         run: |
-          echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -v '^$' | tr '\n' ',')" >> $GITHUB_ENV
+          echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -v '^$' | tr '\n' ',' | sed 's/,$//' | xargs)" >> $GITHUB_ENV
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
